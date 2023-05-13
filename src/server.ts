@@ -2,7 +2,7 @@
 import mongoose from 'mongoose';
 import app from './app';
 
-const port = 5000;
+const port: number = 5000;
 
 // database connection
 async function connectWithDatabase() {
@@ -14,7 +14,7 @@ async function connectWithDatabase() {
         app.listen(port, () => {
             console.log(`New server created with port ${port}`);
         })
-    } catch(error) {
+    } catch (error) {
         console.log("Database connection failed", error);
     }
 
