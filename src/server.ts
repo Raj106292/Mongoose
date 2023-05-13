@@ -1,5 +1,6 @@
-const express = require('express');
-const mongoose = require('mongoose');
+// incase of require we can use import cause we are using typescript
+import express from 'express'; 
+import mongoose from 'mongoose';
 
 const app = express();
 const port = 5000;
@@ -9,6 +10,11 @@ async function connectWithDatabase() {
     try {
         await mongoose.connect('mongodb://127.0.0.1:27017/practice-mongoose');
         console.log("Database connected successfully");
+
+        // the app run when the database connected successfully
+        app.listen(port, () => {
+            console.log(`New server created with port ${port}`);
+        })
     } catch(error) {
         console.log("Database connection failed", error);
     }
@@ -20,8 +26,4 @@ connectWithDatabase();
 
 app.get("/", (req, res) => {
     res.send("Hello World");
-})
-
-app.listen(port, () => {
-    console.log(`New server created with port ${port}`);
 })
