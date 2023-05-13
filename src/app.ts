@@ -1,6 +1,6 @@
 import express, { Application, Request, Response } from 'express';
 import cors from 'cors';
-import { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 
 const app: Application = express();
 app.use(cors());
@@ -32,7 +32,7 @@ app.get("/", (req: Request, res: Response) => {
 
     // creating schema by using interface
     const userSchema = new Schema<IUser>({
-        id: { type: String, required: true },
+        id: { type: String, required: true, unique: true },
         role: { type: String, required: true },
         password: { type: String, required: true },
         name: {
@@ -50,6 +50,33 @@ app.get("/", (req: Request, res: Response) => {
         permanentAddress: { type: String, required: true }
     })
 
+    // creating model by using interface and schema
+    const User = model<IUser>("User", userSchema);
+
+    const createUserToDB = async () => {
+        // creating an instance by using the model
+        const user1 = new User({
+            id: "106292",
+            role: "student",
+            password: "password",
+            name: {
+                firstName: "Raj",
+                lastName: "Das"
+            },
+            age: 20,
+            dateOfBirth: "01/01/2000",
+            gender: "male",
+            email: "tugrp@example.com",
+            contactNo: "0123456789",
+            emergencyContactNo: "0123456788",
+            presentAddress: "Uganda",
+            permanentAddress: "India"
+        })
+    
+        await user1.save();
+        console.log(user1);
+    }
+    createUserToDB();
     // res.send("Hello World");
 })
 
