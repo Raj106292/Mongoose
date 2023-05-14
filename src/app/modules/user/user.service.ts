@@ -11,10 +11,15 @@ export const getOneUserByIdFromDB = async (payload: string): Promise<IUser | nul
     return user;
 }
 
-// export const getAllAdminUserFromDB = async (payload: IUser): Promise<IUser | null> => {
-//     const user = await User.find({ role: "admin" });
-//     return user;
-// }
+export const getAdminUserFromDB = async () => {
+    const admins = await User.getAdminUsers();
+    return admins;
+}
+
+export const getStudentUsersFromDb = async () => {
+    const students = await User.getStudentUsers();
+    return students;
+}
 
 export const createUserToDB = async (payload: IUser): Promise<IUser> => {
     // creating an instance by using the model
