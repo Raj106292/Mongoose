@@ -1,5 +1,5 @@
 // creating an interface
-interface IUser {
+export interface IUser {
     id: string;
     role: "student";
     password: string;
@@ -18,4 +18,7 @@ interface IUser {
     permanentAddress: string
 }
 
-export default IUser;
+// create an interface of method
+export interface IUserMethods {
+    fullName(): string;
+}
